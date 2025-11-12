@@ -1,0 +1,7 @@
+{
+  "name": "BayanihanAI",
+  "description": "A web application for citizens to request help during emergencies.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
