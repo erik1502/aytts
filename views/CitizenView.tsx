@@ -138,7 +138,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
         <button
           onClick={() => setActiveTab('report')}
           className={`flex-1 px-2 py-2 text-xs sm:text-sm font-medium border rounded-l-lg ${
-            activeTab === 'report' ? 'bg-emergency-600 text-white border-emergency-600' : 'bg-white text-slate-700 border-slate-300'
+            activeTab === 'report' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-slate-700 border-slate-300'
           }`}
         >
           Report
@@ -146,7 +146,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
         <button
           onClick={() => setActiveTab('history')}
           className={`flex-1 px-2 py-2 text-xs sm:text-sm font-medium border-t border-b ${
-            activeTab === 'history' ? 'bg-emergency-600 text-white border-emergency-600' : 'bg-white text-slate-700 border-slate-300'
+            activeTab === 'history' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-slate-700 border-slate-300'
           }`}
         >
           History
@@ -154,7 +154,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
         <button
           onClick={() => setActiveTab('news')}
           className={`flex-1 px-2 py-2 text-xs sm:text-sm font-medium border rounded-r-lg ${
-            activeTab === 'news' ? 'bg-emergency-600 text-white border-emergency-600' : 'bg-white text-slate-700 border-slate-300'
+            activeTab === 'news' ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-slate-700 border-slate-300'
           }`}
         >
           News
@@ -164,7 +164,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
       {activeTab === 'report' && (
         <div className="bg-white shadow rounded-lg p-6">
           <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center">
-            <AlertTriangle className="h-6 w-6 text-emergency-500 mr-2" />
+            <AlertTriangle className="h-6 w-6 text-purple-500 mr-2" />
             Report Incident
           </h2>
           
@@ -178,7 +178,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
                     onClick={() => setCategory(cat)}
                     className={`cursor-pointer text-center rounded-md py-3 px-3 text-sm font-bold uppercase tracking-wide border transition-all ${
                       category === cat 
-                        ? 'bg-emergency-50 border-emergency-500 text-emergency-700 ring-2 ring-emergency-500' 
+                        ? 'bg-purple-50 border-purple-500 text-purple-700 ring-2 ring-purple-500' 
                         : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'
                     }`}
                   >
@@ -193,7 +193,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
               <textarea
                 rows={4}
                 required
-                className="mt-1 block w-full shadow-sm sm:text-sm border border-slate-300 rounded-md p-3 focus:ring-emergency-500 focus:border-emergency-500 bg-white text-slate-900 placeholder:text-slate-400 font-medium"
+                className="mt-1 block w-full shadow-sm sm:text-sm border border-slate-300 rounded-md p-3 focus:ring-purple-500 focus:border-purple-500 bg-white text-slate-900 placeholder:text-slate-400 font-medium"
                 placeholder="Describe the situation clearly (e.g., trapped on 2nd floor, water rising)..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -218,7 +218,7 @@ const CitizenView: React.FC<CitizenViewProps> = ({ user }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-lg font-bold text-white bg-emergency-600 hover:bg-emergency-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emergency-500 disabled:opacity-50"
+              className="w-full flex items-center justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-lg font-bold text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50"
             >
               {isSubmitting ? (
                  <><Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" /> Sending...</>
