@@ -1,6 +1,6 @@
 {
-  "name": "BayanihanAI",
-  "description": "A web application for citizens to request help during emergencies.",
+  "name": "BayanihanAI - Disaster Response",
+  "description": "A role-based disaster response coordination platform for Citizens, Admins, and Responders.",
   "requestFramePermissions": [
     "geolocation"
   ]
