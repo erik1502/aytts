@@ -4,9 +4,10 @@ import { Profile, Report, Assignment, ReportCategory, UserRole, EvacuationCenter
 // Initial Mock Data
 const MOCK_USERS: Profile[] = [
   { id: 'u1', full_name: 'Admin User', role: 'admin', is_verified: true, email: 'admin@resq.com' },
-  { id: 'u2', full_name: 'John Doe', role: 'citizen', is_verified: true, citizen_status: 'safe', email: 'citizen@resq.com' },
-  { id: 'u3', full_name: 'Jane Smith', role: 'responder', is_verified: true, status: 'idle', email: 'responder@resq.com' },
-  { id: 'u4', full_name: 'Mike Bravo', role: 'responder', is_verified: true, status: 'busy', email: 'mike@resq.com' },
+  { id: 'u2', full_name: 'Joker', role: 'citizen', is_verified: true, citizen_status: 'safe', email: 'citizen@resq.com' },
+  { id: 'u3', full_name: 'Shai Na', role: 'responder', is_verified: true, status: 'idle', email: 'responder@resq.com' },
+  { id: 'u4', full_name: 'Jorlyn Row', role: 'responder', is_verified: true, status: 'busy', email: 'mike@resq.com' },
+  {id: 'u4', full_name: 'Pat Rik', role: 'responder', is_verified: true, status: 'idle', email: 'miks@resq.com'}
 ];
 
 const MOCK_REPORTS: Report[] = [
