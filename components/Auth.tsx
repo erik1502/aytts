@@ -51,7 +51,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mt-10">
       <div className="p-8">
-        <div className="uppercase tracking-wide text-sm text-emergency-600 font-semibold mb-1">
+        <div className="uppercase tracking-wide text-sm text-purple-600 font-semibold mb-1">
           {isLogin ? 'Welcome Back' : 'Join BayanihanAI'}
         </div>
         <h2 className="block mt-1 text-lg leading-tight font-medium text-black">
@@ -66,7 +66,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                 type="text"
                 required
                 className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                focus:outline-none focus:border-emergency-500 focus:ring-1 focus:ring-emergency-500"
+                focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
@@ -78,7 +78,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin }) => {
               type="email"
               required
               className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-              focus:outline-none focus:border-emergency-500 focus:ring-1 focus:ring-emergency-500"
+              focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -89,7 +89,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emergency-600 hover:bg-emergency-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emergency-500 disabled:opacity-50 transition-colors"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 transition-colors"
           >
             {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
           </button>
@@ -98,7 +98,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin }) => {
         <div className="mt-4 text-center">
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-sm text-slate-600 hover:text-emergency-600"
+            className="text-sm text-slate-600 hover:text-purple-600"
           >
             {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
           </button>
