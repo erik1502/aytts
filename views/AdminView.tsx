@@ -1,8 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { Profile, Report } from '../types';
 import { db } from '../services/mockSupabase';
-import { MapPin, Siren, UserPlus, RefreshCcw, Flame, Droplets, HeartPulse, LifeBuoy, BarChart2, CheckCircle2, TrendingUp, Clock } from 'lucide-react';
+import { MapPin, Siren, UserPlus, RefreshCcw, Flame, Droplets, HeartPulse, LifeBuoy, CheckCircle2, TrendingUp, Clock, Menu } from 'lucide-react';
 
 interface AdminViewProps {
   user: Profile;
@@ -53,14 +52,18 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
   const stats = getStats();
 
   return (
-    <div className="h-[calc(100vh-100px)] flex flex-col">
-      <div className="flex justify-between items-center mb-6">
+    // CHANGED: Removed fixed height calc for mobile, kept for desktop (md)
+    <div className="flex flex-col h-full md:h-[calc(100vh-100px)]">
+      
+      {/* Header Section */}
+      {/* CHANGED: Flex-col for mobile, flex-row for desktop. Added gap and width full. */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
             <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Command Center</h1>
             <p className="text-sm text-slate-500">BayanihanAI Operational Dashboard</p>
         </div>
         
-        <div className="flex space-x-2">
+        <div className="flex w-full md:w-auto justify-between md:justify-end space-x-2">
             <div className="bg-slate-100 p-1 rounded-lg flex text-sm font-medium">
                 <button 
                     onClick={() => setActiveTab('dashboard')}
@@ -82,18 +85,22 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
       </div>
 
       {activeTab === 'dashboard' ? (
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 overflow-hidden pb-4">
+        // CHANGED: 
+        // 1. Grid cols: 1 on mobile, 2 on tablet, 4 on desktop
+        // 2. Removed overflow-hidden from parent on mobile (allows full page scroll), kept on desktop
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-4 md:overflow-hidden">
             {categories.map(cat => {
                 const catReports = reports.filter(r => r.category === cat.id);
                 const CatIcon = cat.icon;
                 return (
-                    <div key={cat.id} className="flex flex-col bg-slate-50 rounded-lg border border-slate-200 h-full overflow-hidden">
-                        <div className={`p-3 border-b border-slate-200 ${cat.bg} flex items-center justify-between`}>
+                    // CHANGED: Fixed height (h-96) on mobile to allow scrolling within lists, full height on desktop
+                    <div key={cat.id} className="flex flex-col bg-slate-50 rounded-lg border border-slate-200 h-96 md:h-full overflow-hidden shadow-sm">
+                        <div className={`p-3 border-b border-slate-200 ${cat.bg} flex items-center justify-between sticky top-0 z-10`}>
                             <div className="flex items-center space-x-2">
                                 <CatIcon className={`h-5 w-5 ${cat.color}`} />
                                 <span className="font-bold text-slate-800">{cat.label}</span>
                             </div>
-                            <span className="bg-white px-2 py-0.5 rounded-full text-xs font-bold shadow-sm">{catReports.length}</span>
+                            <span className="bg-white px-2 py-0.5 rounded-full text-xs font-bold shadow-sm border border-slate-100">{catReports.length}</span>
                         </div>
                         
                         <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
@@ -118,13 +125,14 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
                                     <p className="text-sm text-slate-700 line-clamp-2 mb-2 font-medium">{report.description}</p>
                                     
                                     <div className="flex items-center text-xs text-slate-500 mb-3">
-                                        <MapPin className="h-3 w-3 mr-1" /> {report.location}
+                                        <MapPin className="h-3 w-3 mr-1 flex-shrink-0" /> 
+                                        <span className="truncate">{report.location}</span>
                                     </div>
 
                                     {report.status === 'pending' ? (
                                         <button 
                                             onClick={() => setSelectedReport(report)}
-                                            className="w-full py-1.5 bg-slate-800 text-white text-xs rounded font-bold hover:bg-slate-700 flex items-center justify-center"
+                                            className="w-full py-2 bg-slate-800 text-white text-xs rounded font-bold hover:bg-slate-700 flex items-center justify-center touch-manipulation"
                                         >
                                             <UserPlus className="h-3 w-3 mr-1" /> Dispatch
                                         </button>
@@ -136,7 +144,7 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
                                 </div>
                             ))}
                             {catReports.length === 0 && (
-                                <div className="text-center py-10 opacity-40">
+                                <div className="h-full flex flex-col items-center justify-center text-center py-10 opacity-40">
                                     <CatIcon className="h-10 w-10 mx-auto mb-2" />
                                     <span className="text-xs">No active incidents</span>
                                 </div>
@@ -147,8 +155,9 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
             })}
         </div>
       ) : (
-        <div className="flex-1 overflow-y-auto pb-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="flex-1 overflow-y-auto pb-6 custom-scrollbar">
+            {/* CHANGED: Grid gap adjusted */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wider">Total Resolved</h3>
@@ -160,7 +169,7 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wider">Avg Response Time</h3>
+                        <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wider">Avg Response</h3>
                         <Clock className="h-5 w-5 text-blue-500" />
                     </div>
                     <div className="text-3xl font-extrabold text-slate-900">12m 30s</div>
@@ -175,7 +184,7 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
                     <div className="text-3xl font-extrabold text-slate-900 capitalize">
                         {stats.fire > stats.medical ? 'Fire' : 'Medical'}
                     </div>
-                    <p className="text-sm text-slate-400 mt-2">High frequency zone: Downtown</p>
+                    <p className="text-sm text-slate-400 mt-2">High freq: Downtown</p>
                 </div>
             </div>
 
@@ -188,10 +197,10 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
                         <div className="p-8 text-center text-slate-500">No completed missions yet.</div>
                     ) : (
                         resolvedReports.map(report => (
-                            <div key={report.id} className="p-6 hover:bg-slate-50 transition-colors">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center space-x-4">
-                                        <div className={`p-2 rounded-lg ${
+                            <div key={report.id} className="p-4 md:p-6 hover:bg-slate-50 transition-colors">
+                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                                    <div className="flex items-start md:items-center space-x-4">
+                                        <div className={`p-2 rounded-lg flex-shrink-0 ${
                                             report.category === 'fire' ? 'bg-orange-100 text-orange-600' : 
                                             report.category === 'medical' ? 'bg-red-100 text-red-600' :
                                             'bg-blue-100 text-blue-600'
@@ -202,14 +211,14 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold text-slate-900">{report.description}</p>
-                                            <p className="text-xs text-slate-500 flex items-center mt-1">
+                                            <p className="text-xs text-slate-500 flex flex-wrap items-center mt-1">
                                                 <MapPin className="h-3 w-3 mr-1" /> {report.location}
-                                                <span className="mx-2">•</span>
-                                                Resolved at {new Date().toLocaleTimeString()}
+                                                <span className="hidden md:inline mx-2">•</span>
+                                                <span className="w-full md:w-auto mt-1 md:mt-0 block">Resolved at {new Date().toLocaleTimeString()}</span>
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center space-x-2 ml-14 md:ml-0">
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                             SUCCESS
                                         </span>
@@ -223,18 +232,18 @@ const AdminView: React.FC<AdminViewProps> = ({ user }) => {
         </div>
       )}
 
-      {/* Assignment Modal */}
+      {/* Assignment Modal - Responsive Fixes */}
       {selectedReport && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+          <div className="flex items-end sm:items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 bg-slate-900 bg-opacity-75 transition-opacity" onClick={() => setSelectedReport(null)}></div>
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-lg w-full">
               <div className="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
                   <h3 className="text-lg leading-6 font-medium text-slate-900">Deploy Units</h3>
-                  <button onClick={() => setSelectedReport(null)} className="text-slate-400 hover:text-slate-500">Close</button>
+                  <button onClick={() => setSelectedReport(null)} className="text-slate-400 hover:text-slate-500 p-2">Close</button>
               </div>
-              <div className="p-4 max-h-96 overflow-y-auto">
+              <div className="p-4 max-h-[60vh] overflow-y-auto">
                    <p className="text-sm text-slate-600 mb-4 bg-yellow-50 p-2 rounded border border-yellow-100">
                        Incident: <strong>{selectedReport.category.toUpperCase()}</strong> - {selectedReport.description}
                    </p>
